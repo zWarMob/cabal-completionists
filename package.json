@@ -1,22 +1,21 @@
 {
-  "name": "create-react-app",
-  "version": "0.1.0",
-  "private": true,
+  "name": "cabal-hoarders",
+  "version": "1.0.0",
+  "description": "collection bot for discord to give knowledge on peoples current status with filling out their collection",
+  "main": "server\\app.js",
   "dependencies": {
-    "react": "^16.6.1",
-    "react-dom": "^16.6.1",
-    "react-scripts": "^4.0.3"
+    "@discordjs/rest": "^0.1.0-canary.0",
+    "cookie-session": "^1.4.0",
+    "discord-api-types": "^0.22.0",
+    "discord.js": "^13.1.0",
+    "express": "^4.17.1",
+    "mongodb": "^4.1.0",
+    "mustache-express": "^1.3.1",
+    "node-fetch": "^2.6.1"
   },
   "scripts": {
-    "dev": "BROWSER=none react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "node server/app.js 1"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "author": "",
+  "license": "ISC"
 }
