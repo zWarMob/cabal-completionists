@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="public/main.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
-</head>
-<body>
+    <link rel="stylesheet" href="main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <div class="screenTooSmall">
-        <p>This site was not designed for such small sizes.<br>Go big or go home!</p>
-        <p>Sorry</p>
+      <p>
+        This site was not designed for such small sizes.<br />Go big or go home!
+      </p>
+      <p>Sorry</p>
     </div>
 
     <div class="window">
-        <h1>{{username}}'s Collection</h1>
+      <div id="info"></div>
+      <h1>{{username}}'s Collection</h1>
         <div class="collection-container">
             <div class="tabs">
                 ?
@@ -28,10 +34,42 @@
         </div>
     </div>
 
+    <script>
+      window.onload = () => {
+        const URLparams = new URLSearchParams(window.location.hash.substr(1));
+        const [tokenType, accessToken] = [
+          URLparams.get("token_type"),
+          URLparams.get("access_token"),
+        ];
+        //     const fragment = new URLSearchParams(window.location.hash.slice(1));
+        //     const [accessToken, tokenType] = [fragment.get('access_token'), fragment.get('token_type')];
+        console.log(tokenType);
+        console.log(accessToken);
+        if (!accessToken) {
+          window.location.href = "http://localhost:9080/authorize.html";
+        }
+
+        fetch("https://discord.com/api/users/@me", {
+          headers: {
+            authorization: `${tokenType} ${accessToken}`,
+          },
+        })
+          .then((result) => result.json())
+          .then((response) => {
+            console.log(response);
+            const { username, discriminator } = response;
+            document.getElementById(
+              "info"
+            ).innerHTML += ` ${username}#${discriminator}`;
+          })
+          .catch(console.error);
+      };
+    </script>
     <script
-    src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
-    integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
-    crossorigin="anonymous"></script>
+      src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+      integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+      crossorigin="anonymous"
+    ></script>
     <script>
         var items = [
             "Upgrade Core (Low)",
@@ -885,6 +923,6 @@
             },
         }
     </script>
-    <script src="public/main.js"></script>
-</body>
+    <script src="main.js"></script>
+  </body>
 </html>
