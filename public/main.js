@@ -36,6 +36,30 @@ $(document).on("click", "input[type='checkbox']", (evt) => {
   updateCollection();
 });
 
+$(document).on("focusout", "input.items-collected", (evt) => {
+  console.log(evt);
+  let val = evt.target.value;
+  let ds = evt.target.dataset;
+
+  if (collection[ds.tab][ds.subtab][ds.item].collected != val) {
+    collection[ds.tab][ds.subtab][ds.item].collected = val;
+
+    updateCollection();
+  }
+  // let checked = evt.target.checked;
+  // let ds = evt.target.dataset;
+  // if (ds.item !== undefined) {
+  //   checkItem(ds.tab, ds.subtab, ds.item, checked);
+  // } else {
+  //   if (ds.subtab !== undefined) {
+  //     checkLoopItems(ds.tab, ds.subtab, checked);
+  //   } else {
+  //     checkLoopSubTabs(ds.tab, checked);
+  //   }
+  // }
+  // updateCollection();
+});
+
 function checkLoopSubTabs(tab, checked) {
   for (let subTab in collection[tab]) {
     checkLoopItems(tab, subTab, checked);
@@ -54,6 +78,8 @@ function checkItem(tab, subTab, item, checked) {
     `[type="checkbox"][data-subtab="${subTab}"][data-item="${item}"]`
   );
   checkbox.checked = checked;
+
+  checkbox.parentElement.parentElement.classList.toggle("lookingFor");
 }
 
 function updateCollection() {
@@ -133,6 +159,9 @@ function populateSubTabs(tab, tabFix) {
       some = true;
     }
     if (every) {
+      if ($(`#${subTabFix} input[type="checkbox"]`)[0] == undefined) {
+        debugger;
+      }
       $(`#${subTabFix} input[type="checkbox"]`)[0].checked = true;
     } else if (some) {
       $(`#${subTabFix} input[type="checkbox"]`)[0].indeterminate = true;
@@ -152,6 +181,7 @@ function populateSubTab(subTab, subTabFix, tab) {
   var subTabContentItemsString = "";
 
   for (subTabItem in subTabObj) {
+    console.log(subTabItem, tab, subTab);
     var subTabItemFolderFix = subTabItem.replaceAll("/", "");
     subTabContentItemsString += `<div class="item ${
       subTabData[subTabItem].lookingFor ? "lookingFor" : ""

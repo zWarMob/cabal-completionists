@@ -651,62 +651,6 @@
             },
             "World":{
                 "Bloody Ice":{
-                    "Upgrade Core (Low)": {
-                        items: ["Upgrade Core (Low)"],
-                        required: 100,
-                    },
-                    "Force Core (Low)": {
-                        items: ["Force Core (Low)"],
-                        required: 200,
-                    },
-                    "Slot Extender (Low)": {
-                        items: ["Slot Extender (Low)"],
-                        required: 1,
-                    },
-                    "Astral Core (Titanium)": {
-                        items: ["Astral Core (Titanium)"],
-                        required: 2000,
-                    },
-                    "Quartz Core (Pherystin)": {
-                        items: ["Quartz Core (Pherystin)"],
-                        required: 500,
-                    },
-                    "Material Core (Titanium)": {
-                        items: ["Material Core (Titanium)"],
-                        required: 1000,
-                    },
-                    "Pherystin/Titanium Weapon +5": {
-                        items: ["Pherystin Orb +5","Pherystin Crystal +5","Titanium Chakram +5","Titanium Great Sword +5","Titanium Blade +5","Titanium Daikatana +5","Titanium Katana +5",],
-                        required: 5,
-                    },
-                    "Titanium Helmet +5": {
-                        items: ["Titanium Helmet +5"],
-                        required: 5,
-                    },
-                    "Titanium Suit +5": {
-                        items: ["Titanium Suit +5"],
-                        required: 5,
-                    },
-                    "Titanium Gloves +5": {
-                        items: ["Titanium Gloves +5"],
-                        required: 5,
-                    },
-                    "Titanium Boots +5": {
-                        items: ["Titanium Boots +5"],
-                        required: 5,
-                    },
-                    "Bluestin Epaulet of Fighter": {
-                        items: ["Bluestin Epaulet of Fighter"],
-                        required: 3,
-                    },
-                    "Sage's Bluestin Epaulet": {
-                        items: ["Sage's Bluestin Epaulet"],
-                        required: 3,
-                    },
-                    "Guardian's Bluestin Epaulet": {
-                        items: ["Guardian's Bluestin Epaulet"],
-                        required: 3,
-                    },
                 },
                 "Desert Scream":{
 
@@ -717,7 +661,7 @@
                 "Port Lux":{
 
                 },
-                "Fort.Ruina":{
+                "Fort Ruina":{
 
                 },
                 "Undead Ground":{
@@ -747,62 +691,6 @@
             },
             "Special":{
                 "Upgrade":{
-                    "Upgrade Core (Low)": {
-                        items: ["Upgrade Core (Low)"],
-                        required: 100,
-                    },
-                    "Force Core (Low)": {
-                        items: ["Force Core (Low)"],
-                        required: 200,
-                    },
-                    "Slot Extender (Low)": {
-                        items: ["Slot Extender (Low)"],
-                        required: 1,
-                    },
-                    "Astral Core (Titanium)": {
-                        items: ["Astral Core (Titanium)"],
-                        required: 2000,
-                    },
-                    "Quartz Core (Pherystin)": {
-                        items: ["Quartz Core (Pherystin)"],
-                        required: 500,
-                    },
-                    "Material Core (Titanium)": {
-                        items: ["Material Core (Titanium)"],
-                        required: 1000,
-                    },
-                    "Pherystin/Titanium Weapon +5": {
-                        items: ["Pherystin Orb +5","Pherystin Crystal +5","Titanium Chakram +5","Titanium Great Sword +5","Titanium Blade +5","Titanium Daikatana +5","Titanium Katana +5",],
-                        required: 5,
-                    },
-                    "Titanium Helmet +5": {
-                        items: ["Titanium Helmet +5"],
-                        required: 5,
-                    },
-                    "Titanium Suit +5": {
-                        items: ["Titanium Suit +5"],
-                        required: 5,
-                    },
-                    "Titanium Gloves +5": {
-                        items: ["Titanium Gloves +5"],
-                        required: 5,
-                    },
-                    "Titanium Boots +5": {
-                        items: ["Titanium Boots +5"],
-                        required: 5,
-                    },
-                    "Bluestin Epaulet of Fighter": {
-                        items: ["Bluestin Epaulet of Fighter"],
-                        required: 3,
-                    },
-                    "Sage's Bluestin Epaulet": {
-                        items: ["Sage's Bluestin Epaulet"],
-                        required: 3,
-                    },
-                    "Guardian's Bluestin Epaulet": {
-                        items: ["Guardian's Bluestin Epaulet"],
-                        required: 3,
-                    },
                 },
                 "Chaos Upgrade I":{
 
@@ -912,7 +800,7 @@
           URLparams.get("access_token"),
         ];
         if (!accessToken) {
-          window.location.href = "http://localhost:9080/authorize.html";
+          window.location.href = "http://localhost:5000/authorize.html";
         }
 
         fetch("https://discord.com/api/users/@me", {
