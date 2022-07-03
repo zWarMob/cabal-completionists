@@ -12,6 +12,8 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
       rel="stylesheet"
     />
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
   </head>
   <body>
     <div class="screenTooSmall">
@@ -34,42 +36,6 @@
         </div>
     </div>
 
-    <script>
-      window.onload = () => {
-        const URLparams = new URLSearchParams(window.location.hash.substr(1));
-        const [tokenType, accessToken] = [
-          URLparams.get("token_type"),
-          URLparams.get("access_token"),
-        ];
-        //     const fragment = new URLSearchParams(window.location.hash.slice(1));
-        //     const [accessToken, tokenType] = [fragment.get('access_token'), fragment.get('token_type')];
-        console.log(tokenType);
-        console.log(accessToken);
-        if (!accessToken) {
-          window.location.href = "http://localhost:9080/authorize.html";
-        }
-
-        fetch("https://discord.com/api/users/@me", {
-          headers: {
-            authorization: `${tokenType} ${accessToken}`,
-          },
-        })
-          .then((result) => result.json())
-          .then((response) => {
-            console.log(response);
-            const { username, discriminator } = response;
-            document.getElementById(
-              "info"
-            ).innerHTML += ` ${username}#${discriminator}`;
-          })
-          .catch(console.error);
-      };
-    </script>
-    <script
-      src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
-      integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
-      crossorigin="anonymous"
-    ></script>
     <script>
         var items = [
             "Upgrade Core (Low)",
@@ -153,7 +119,8 @@
             "Shadow Titanium Gloves +5",
             "Shadow Titanium Boots +5",
         ];
-        var collection = 
+        var collection
+        var orderedCollection = 
         {
             "Dungeon":{
                 "The Lake in Dusk":{
@@ -923,6 +890,64 @@
             },
         }
     </script>
+    <script>
+    // Set Up Firebase
+      let db;
+      let userId;
+      window.onload = () => {
+        firebase.initializeApp({
+            apiKey: "AIzaSyC7kiVSnibEfLiLjXX-yBVY1IkS9sqIyb0",
+            authDomain: "cabal-collections.firebaseapp.com",
+            projectId: "cabal-collections",
+            storageBucket: "cabal-collections.appspot.com",
+            messagingSenderId: "558332475085",
+            appId: "1:558332475085:web:dd0d325aac826d8a729b84"
+        });
+        db = firebase.firestore();
+
+    // Set Up Discord (if logged in)
+        const URLparams = new URLSearchParams(window.location.hash.substr(1));
+        const [tokenType, accessToken] = [
+          URLparams.get("token_type"),
+          URLparams.get("access_token"),
+        ];
+        if (!accessToken) {
+          window.location.href = "http://localhost:9080/authorize.html";
+        }
+
+        fetch("https://discord.com/api/users/@me", {
+          headers: {
+            authorization: `${tokenType} ${accessToken}`,
+          },
+        })
+          .then((result) => result.json())
+          .then((response) => {
+            console.log(response);
+            const { id, username, discriminator } = response;
+            userId=id;
+            document.getElementById(
+              "info"
+            ).innerHTML += ` ${username}#${discriminator}`;
+            
+            db.collection("collections").doc(userId).get()
+            .then((doc) => {
+                if(doc.data()!==undefined){
+                    collection = doc.data();
+                }else{
+                    db.collection("collections").doc(userId).set(collection);
+                }
+                populateTabs();
+                console.log('populated')
+            });
+          })
+          .catch(console.error);
+      };
+    </script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+      integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+      crossorigin="anonymous"
+    ></script>
     <script src="main.js"></script>
   </body>
 </html>

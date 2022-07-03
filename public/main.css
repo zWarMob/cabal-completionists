@@ -84,10 +84,14 @@ body{
     display: flex;
 }
 .item{
+    opacity:0.5;
     padding: 12px 6px;
     max-width: 110px;
     font-size:0.8em;
     text-align: center;
+}
+.item.lookingFor{
+    opacity:1;
 }
 .item-name{
     height: 2.4em;
